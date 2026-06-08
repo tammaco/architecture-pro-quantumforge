@@ -58,7 +58,7 @@ CHUNK_SIZE = 300
 CHUNK_OVERLAP = 50
 
 ```
-python scripts/chunking.py
+python chunking.py
 ```
 
 Всего файлов: 31
@@ -95,3 +95,52 @@ python build_index.py
 ```
 python query_test.py
 ```
+
+# Задание 4. Реализация RAG-бота с техниками промптинга
+
+Добавлены [примеры](https://github.com/tammaco/architecture-pro-quantumforge/data/examples.json) для few-shot промптинга.
+
+Добавлен скрипт для [загрузки](https://github.com/tammaco/architecture-pro-quantumforge/scripts/examples_loader.py)  примеров.
+
+Telegram-бот реализован, но для его работы требуется VPN/прокси из-за блокировки Telegram на территории РФ, поэтому остановилась на простом REPL-е.
+
+# Задание 5. Запуск и демонстрация работы бота
+
+1. Активация виртуального окружения
+
+```
+venv\Scripts\activate
+```
+
+2. Установка зависимостей
+
+```
+pip install -r requirements.txt
+```
+
+3. Выполнение скриптов:
+
+```
+cd scripts
+```
+
+```
+python chunking.py
+```
+
+```
+python embeddings.py
+```
+
+```
+python build_index.py
+```
+
+```
+python rag_bot_secure.py
+```
+
+4. Вывод
+
+Без фильтрации бот возвращал некорректный ответ по вредоносному контексту, фильтрацией бот отвечает "Я не знаю".
+Скрины в [папке](https://github.com/tammaco/architecture-pro-quantumforge/screenshots) 

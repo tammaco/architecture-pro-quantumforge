@@ -4,7 +4,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.docstore.document import Document
 
 KB_PATH = pathlib.Path(__file__).parent.parent / "knowledge_base"
-CACHE_PATH = pathlib.Path(__file__).parent / "chunks_cache.pkl"
+CACHE_PATH = pathlib.Path(__file__).parent.parent / "chunks_cache.pkl"
 
 CHUNK_SIZE = 300
 CHUNK_OVERLAP = 50
@@ -31,7 +31,7 @@ for file_path in sorted(KB_PATH.glob("*.txt")):
             "source_file": file_path.name,
             "chunk_index": i,
             "char_count": len(chunk.page_content),
-            "start_index": i * (CHUNK_SIZE - CHUNK_OVERLAP),  # примерная позиция
+            "start_index": i * (CHUNK_SIZE - CHUNK_OVERLAP), 
         })
     
     print(f"   {file_path.name}: {len(chunks)} чанков")

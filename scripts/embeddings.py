@@ -10,8 +10,8 @@ load_dotenv()
 YANDEX_CLOUD_FOLDER = os.getenv("YANDEX_CLOUD_FOLDER")
 YANDEX_CLOUD_API_KEY = os.getenv("YANDEX_CLOUD_API_KEY")
 
-CACHE_INPUT = Path(__file__).parent / "chunks_cache.pkl"
-CACHE_OUTPUT = Path(__file__).parent / "embeddings_cache.pkl"
+CACHE_INPUT = Path(__file__).parent.parent / "chunks_cache.pkl"
+CACHE_OUTPUT = Path(__file__).parent.parent / "embeddings_cache.pkl"
 
 if not CACHE_INPUT.exists():
     exit(1)
