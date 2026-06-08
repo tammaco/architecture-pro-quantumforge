@@ -144,3 +144,41 @@ python rag_bot_secure.py
 
 Без фильтрации бот возвращал некорректный ответ по вредоносному контексту, фильтрацией бот отвечает "Я не знаю".
 Скрины в [папке](https://github.com/tammaco/architecture-pro-quantumforge/screenshots) 
+
+# Задание 6. Автоматическое ежедневное обновление базы знаний
+
+Добавлен [файл](https://github.com/tammaco/architecture-pro-quantumforge/scripts/index_state.json) для хранения состояния индекса.
+
+Добавлен [скрипт](https://github.com/tammaco/architecture-pro-quantumforge/scripts/update_index.py) для обновления индекса и логирования. 
+
+Результаты обновления сохраняются в [файл](https://github.com/tammaco/architecture-pro-quantumforge/logs/update.log).
+
+Пример [лога](https://github.com/tammaco/architecture-pro-quantumforge/screenshots/пример_лога.png) лога (удаление 1 файла).
+
+[Диаграмма](https://github.com/tammaco/architecture-pro-quantumforge/diagram.drawio)
+
+Вызов скрипта по обновлению базы знаний можно сделать в БД (вызов job) ежедневно в 6 утра:
+
+```
+EXEC msdb.dbo.sp_add_job
+    @job_name = N'RAG_Index_Updater',
+    @enabled = 1;
+
+EXEC msdb.dbo.sp_add_jobstep
+    @job_name = N'RAG_Index_Updater',
+    @step_name = N'Run update_index.py',
+    @subsystem = N'CmdExec',
+    @command = N'update_index.py',
+    @retry_attempts = 3,
+    @retry_interval = 5;
+
+EXEC msdb.dbo.sp_add_jobschedule
+    @job_name = N'RAG_Index_Updater',
+    @name = N'Daily_6AM',
+    @freq_type = 4, 
+    @freq_interval = 1,
+    @active_start_time = 60000;  
+
+EXEC msdb.dbo.sp_add_jobserver
+    @job_name = N'RAG_Index_Updater';
+```

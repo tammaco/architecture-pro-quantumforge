@@ -1,0 +1,19 @@
+2026-06-08 20:09:59,675 - INFO - Start: 2026-06-08 20:09:59.675306
+2026-06-08 20:09:59,690 - INFO - NEW: 0
+2026-06-08 20:09:59,690 - INFO - MODIFIED: 0
+2026-06-08 20:09:59,690 - INFO - DELETED: 0
+2026-06-08 20:09:59,691 - INFO - NO CHANGES
+2026-06-08 20:09:59,691 - INFO - index updated at 2026-06-08, 0 files added, 0 files modified, 0 files deleted, 0 errors
+2026-06-08 20:25:19,282 - INFO - Start: 2026-06-08 20:25:19.282032
+2026-06-08 20:25:19,286 - INFO - NEW: 0
+2026-06-08 20:25:19,286 - INFO - MODIFIED: 0
+2026-06-08 20:25:19,286 - INFO - DELETED: 1
+2026-06-08 20:25:19,286 - INFO -   - ВанГоги.txt
+2026-06-08 20:25:19,286 - INFO - launch: chunking.py
+2026-06-08 20:25:19,956 - INFO - chunking.py done
+2026-06-08 20:25:19,956 - INFO - launch: embeddings.py
+2026-06-08 20:25:52,699 - INFO - embeddings.py done
+2026-06-08 20:25:52,699 - INFO - launch: build_index.py
+2026-06-08 20:25:52,917 - INFO - build_index.py done
+2026-06-08 20:25:52,924 - INFO - End, duration 33.64 s
+2026-06-08 20:25:52,924 - INFO - index updated at 2026-06-08, 0 files added, 0 files modified, 1 files deleted, 0 errors

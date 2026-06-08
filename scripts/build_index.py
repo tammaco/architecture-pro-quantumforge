@@ -3,7 +3,7 @@ import numpy as np
 import faiss
 from pathlib import Path
 
-EMBEDDINGS_INPUT = Path(__file__).parent / "embeddings_cache.pkl"
+EMBEDDINGS_INPUT = Path(__file__).parent.parent / "embeddings_cache.pkl"
 INDEX_OUTPUT = Path(__file__).parent.parent / "faiss_index.pkl"
 
 if not EMBEDDINGS_INPUT.exists():
