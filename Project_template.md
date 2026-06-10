@@ -106,6 +106,18 @@ Telegram-бот реализован, но для его работы требу
 
 # Задание 5. Запуск и демонстрация работы бота
 
+Основные переменные вынесены в .env
+
+```
+YANDEX_CLOUD_FOLDER=[YANDEX_CLOUD_FOLDER]
+YANDEX_CLOUD_API_KEY=[YANDEX_CLOUD_API_KEY]
+TELEGRAM_BOT_TOKEN=[TELEGRAM_BOT_TOKEN]
+CHUNK_SIZE=300
+CHUNK_OVERLAP=50
+CHUNK_SEPARATORS=["\n\n", "\n", ". ", "! ", "? ", "; ", ", ", " ", ""]
+BATCH_SIZE=10
+```
+
 1. Активация виртуального окружения
 
 ```
@@ -182,3 +194,62 @@ EXEC msdb.dbo.sp_add_jobschedule
 EXEC msdb.dbo.sp_add_jobserver
     @job_name = N'RAG_Index_Updater';
 ```
+
+# Задание 7. Аналитика покрытия и качества базы знаний
+
+1. Добавлен [«золотой набор»](https://github.com/tammaco/architecture-pro-quantumforge/data/golden_questions.json) вопросов для проверки бота.
+2. Добавлен скрит, который вызывает бот со списокм «золотого набора» и анализирует вхождения ответов:
+
+```
+cd scripts
+python query_logger.py
+```
+
+3. Логи сохраняются в формате jsonl в [файле](https://github.com/tammaco/architecture-pro-quantumforge/logs/query_log.jsonl).
+
+4. Добавлен скрипт анализа логов.
+Запуск можно осуществить с параметрами для последний n-запросов или за последние N дней.
+
+```
+cd scripts
+python analyze_logs.py --last_n 10 
+```
+
+Для теста был исправлен один верный ответ на неправильный, результат:
+
+```
+Totla queries: 11
+Success: 10
+Accuracy: 90.9%
+AVG chunks count: 4.0
+AVG answer duration: 1.78 sec
+Failed:
+
+Question: Какие люди были на "Очевидности"?
+Reason: Не найдено ни одного слова
+Expected: Вероника Антонио
+Actual: Шаг 1: Вопрос о пассажирах на борту «Очевидности».
+Шаг 2: В найденных фрагментах указано, что на «Оч...
+```
+
+Также на основе анализа в ответы были добавлены некоторые слова.
+
+Было:
+
+```
+    {
+      "question": "Что такое Пиплия?",
+      "answer": "планета"
+    }
+``` 
+
+Стало:
+
+```
+    {
+      "question": "Что такое Пиплия?",
+      "answer": "планета дом Вали"
+    }
+``` 
+
+5. Добавлена [Диаграмма](https://github.com/tammaco/architecture-pro-quantumforge/sequence_diagram.puml) последовательности RAG-бота

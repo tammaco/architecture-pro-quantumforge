@@ -1,0 +1,35 @@
+@startuml Диаграмма последовательности RAG-бота
+actor "Пользователь" as User
+participant "REPL" as Bot
+participant "RAG-ядро" as RAG
+participant "Yandex GPT" as Yandex
+database "FAISS" as FAISS
+participant "Фильтр" as Filter
+
+User -> Bot: вопрос
+activate Bot
+Bot -> RAG: ask(question)
+activate RAG
+
+RAG -> Yandex: text_search_query()
+Yandex --> RAG: query_embedding
+
+RAG -> FAISS: search()
+FAISS --> RAG: top_k чанков
+
+RAG -> Filter: filter_chunks()
+Filter --> RAG: безопасные чанки
+
+alt контекст пуст
+    RAG --> Bot: "Я не знаю"
+    Bot --> User: ответ
+else есть контекст
+    RAG -> Yandex: run(prompt)
+    Yandex --> RAG: ответ
+    RAG --> Bot: ответ + источники
+    Bot --> User: ответ
+end
+
+deactivate RAG
+deactivate Bot
+@enduml
